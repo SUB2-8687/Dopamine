@@ -263,7 +263,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 
 - (void)prepareBootstrapWithCompletion:(void (^)(NSError *))completion
 {
-    [[DOUIManager sharedInstance] sendLog:@"Updating BaseBin" debug:NO];
+    [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating BaseBin") debug:NO];
 
     // Ensure /private/preboot is mounted writable (Not writable by default on iOS <=15)
     NSError *error = [self ensurePrivatePrebootIsWritable];
@@ -445,7 +445,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             [self extractBootstrap:path withCompletion:bootstrapFinishedCompletion];
         };*/
         
-        [[DOUIManager sharedInstance] sendLog:@"Extracting Bootstrap" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Extracting Bootstrap") debug:NO];
 
         NSString *bootstrapZstdPath = [NSString stringWithFormat:@"%@/bootstrap_%@.tar.zst", [NSBundle mainBundle].bundlePath, [self bootstrapVersion]];
         [self extractBootstrap:bootstrapZstdPath withCompletion:bootstrapFinishedCompletion];
@@ -460,7 +460,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             bootstrapDownloadCompletion(bundleCandidate, nil);
         }
         else {
-            [[DOUIManager sharedInstance] sendLog:@"Downloading Bootstrap" debug:NO];
+            [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Downloading Bootstrap") debug:NO];
             [self downloadBootstrapWithCompletion:bootstrapDownloadCompletion];
         }*/
     }
@@ -535,7 +535,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 {
     // Initial setup on first jailbreak
     if ([[NSFileManager defaultManager] fileExistsAtPath:JBROOT_PATH(@"/prep_bootstrap.sh")]) {
-        [[DOUIManager sharedInstance] sendLog:@"Finalizing Bootstrap" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Finalizing Bootstrap") debug:NO];
         int r = exec_cmd_trusted(JBROOT_PATH("/bin/sh"), JBROOT_PATH("/prep_bootstrap.sh"), NULL);
         if (r != 0) {
             return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"prep_bootstrap.sh returned %d\n", r]}];
@@ -554,7 +554,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     }
     
     if (shouldInstallLibroot || shouldInstallLibkrw || shouldInstallBasebinLink || shouldInstallLaunchctl) {
-        [[DOUIManager sharedInstance] sendLog:@"Updating Bundled Packages" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating Bundled Packages") debug:NO];
 
         if (shouldInstallLaunchctl) {
             NSString *launchctlPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"launchctl_1_1.2.0_iphoneos-arm64.deb"];
@@ -616,7 +616,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
         NSString *sizeString = [NSByteCountFormatter stringFromByteCount:totalBytesWritten countStyle:NSByteCountFormatterCountStyleFile];
         NSString *writtenBytesString = [NSByteCountFormatter stringFromByteCount:totalBytesExpectedToWrite countStyle:NSByteCountFormatterCountStyleFile];
         
-        [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Downloading Bootstrap (%@/%@)", sizeString, writtenBytesString] debug:NO update:YES];
+        [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:DOLocalizedString(@"Downloading Bootstrap (%@/%@)"), sizeString, writtenBytesString] debug:NO update:YES];
     }
 }
 
