@@ -124,6 +124,13 @@
 "Bypassing PAC (%@)" = "Bypassing PAC (%@)";
 "Bypassing PPL (%@)" = "Bypassing PPL (%@)";
 "Bypassing SPTM (%@)" = "Bypassing SPTM (%@)";
+"Updating BaseBin" = "Updating BaseBin";
+"Extracting Bootstrap" = "Extracting Bootstrap";
+"Downloading Bootstrap" = "Downloading Bootstrap";
+"Downloading Bootstrap (%@/%@)" = "Downloading Bootstrap (%@/%@)";
+"Finalizing Bootstrap" = "Finalizing Bootstrap";
+"Updating Bundled Packages" = "Updating Bundled Packages";
+"Downloading Kernel" = "Downloading Kernel";
 
 // Package Manager selection
 "Status_Title_Select_Package_Managers" = "Select Package Manager(s)";
