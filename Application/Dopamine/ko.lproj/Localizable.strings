@@ -124,6 +124,13 @@
 "Bypassing PAC (%@)" = "PAC 우회 중 (%@)";
 "Bypassing PPL (%@)" = "PPL 우회 중 (%@)";
 "Bypassing SPTM (%@)" = "SPTM 우회 중 (%@)";
+"Updating BaseBin" = "베이스 바이너리 업데이트 중";
+"Extracting Bootstrap" = "부트스트랩 압축 해제 중";
+"Downloading Bootstrap" = "부트스트랩 다운로드 중";
+"Downloading Bootstrap (%@/%@)" = "부트스트랩 다운로드 중 (%@/%@)";
+"Finalizing Bootstrap" = "부트스트랩 마무리 중";
+"Updating Bundled Packages" = "번들 패키지 업데이트 중";
+"Downloading Kernel" = "커널 다운로드 중";
 
 // Package Manager selection
 "Status_Title_Select_Package_Managers" = "패키지 매니저 선택";
