@@ -8,6 +8,7 @@
 #import "DOLyricsLogView.h"
 #import "DOProgressiveBlurView.h"
 #import "DOGlobalAppearance.h"
+#import "DOUIManager.h"
 
 #define LOG_HEIGHT 40
 
@@ -96,7 +97,7 @@
         return;
     }
 
-    [self showLog:@"Done"];
+    [self showLog:DOLocalizedString(@"Done")];
     [self.stackView.arrangedSubviews makeObjectsPerformSelector:@selector(setSuccess)];
 }
 
