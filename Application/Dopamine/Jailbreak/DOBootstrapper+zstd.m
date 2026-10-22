@@ -1,6 +1,7 @@
 #import "DOBootstrapper+zstd.h"
 
 #import "zstd.h"
+#import "DOUIManager.h"
 #define BUFFER_SIZE 8192
 
 @implementation DOBootstrapper (zstd)
@@ -10,14 +11,14 @@
     // Open the input file for reading
     FILE *input_file = fopen(zstdPath.fileSystemRepresentation, "rb");
     if (input_file == NULL) {
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to open input file %@: %s", zstdPath, strerror(errno)]}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to open input file %@: %s"), zstdPath, strerror(errno)]}];
     }
 
     // Open the output file for writing
     FILE *output_file = fopen(tarPath.fileSystemRepresentation, "wb");
     if (output_file == NULL) {
         fclose(input_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to open output file %@: %s", tarPath, strerror(errno)]}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to open output file %@: %s"), tarPath, strerror(errno)]}];
     }
 
     // Create a ZSTD decompression context
@@ -25,7 +26,7 @@
     if (dctx == NULL) {
         fclose(input_file);
         fclose(output_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : @"Failed to create ZSTD decompression context"}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : DOLocalizedString(@"Failed to create ZSTD decompression context")}];
     }
 
     // Create a buffer for reading input data
@@ -34,7 +35,7 @@
         ZSTD_freeDCtx(dctx);
         fclose(input_file);
         fclose(output_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : @"Failed to allocate input buffer"}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : DOLocalizedString(@"Failed to allocate input buffer")}];
     }
 
     // Create a buffer for writing output data
@@ -44,7 +45,7 @@
         ZSTD_freeDCtx(dctx);
         fclose(input_file);
         fclose(output_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : @"Failed to allocate output buffer"}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : DOLocalizedString(@"Failed to allocate output buffer")}];
     }
 
     // Create a ZSTD decompression stream
@@ -57,7 +58,7 @@
         ZSTD_freeDCtx(dctx);
         fclose(input_file);
         fclose(output_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : @"Failed to create ZSTD decompression stream"}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : DOLocalizedString(@"Failed to create ZSTD decompression stream")}];
     }
 
     // Initialize the ZSTD decompression stream
@@ -69,7 +70,7 @@
         ZSTD_freeDCtx(dctx);
         fclose(input_file);
         fclose(output_file);
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to initialize ZSTD decompression stream: %s", ZSTD_getErrorName(ret)]}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to initialize ZSTD decompression stream: %s"), ZSTD_getErrorName(ret)]}];
     }
     
     // Read and decompress the input file
@@ -91,7 +92,7 @@
                 ZSTD_freeDCtx(dctx);
                 fclose(input_file);
                 fclose(output_file);
-                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to read input file: %s", strerror(errno)]}];
+                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to read input file: %s"), strerror(errno)]}];
             }
         }
 
@@ -114,7 +115,7 @@
                 ZSTD_freeDCtx(dctx);
                 fclose(input_file);
                 fclose(output_file);
-                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to decompress input data: %s", ZSTD_getErrorName(ret)]}];
+                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to decompress input data: %s"), ZSTD_getErrorName(ret)]}];
             }
 
             // Write the decompressed data to the output file
@@ -126,7 +127,7 @@
                 ZSTD_freeDCtx(dctx);
                 fclose(input_file);
                 fclose(output_file);
-                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to write output file: %s", strerror(errno)]}];
+                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedDecompressing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to write output file: %s"), strerror(errno)]}];
             }
 
             total_bytes_written += bytes_written;

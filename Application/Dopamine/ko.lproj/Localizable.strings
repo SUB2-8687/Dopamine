@@ -22,7 +22,7 @@
 
 // Update View
 "Update_Status_Downloading" = "업데이트 다운로드 중...";
-"Update_Status_Subtitle_Please_Wait" = "파일 다운로드가 완료될 때까지 기다려 주십시오";
+"Update_Status_Subtitle_Please_Wait" = "파일 다운로드가 완료될 때까지 기다려 주세요";
 "Update_Status_Installing" = "업데이트 설치 중...";
 "Update_Status_Subtitle_Restart_Soon" = "잠시 후 기기가 재시작됩니다";
 "Title_Changelog" = "변경 로그";
@@ -54,8 +54,8 @@
 "Button_Change_Mobile_Password" = "\"mobile\" 비밀번호 변경";
 
 // Settings Hints
-"Hint_Hide_Jailbreak" = "\"탈옥 숨기기\"는 다음 탈옥까지 일시적으로 탈옥 관련 파일을 제거합니다.";
-"Hint_Hide_Jailbreak_Jailbroken" = "\"탈옥 숨기기\"는 일부 탈옥 탐지를 우회하기 위해 탈옥을 일시적으로 비활성화하는 데 사용할 수 있습니다. 완전히 효과적이지는 않으며 모든 흔적을 숨기지는 못하지만, 기기를 재부팅 후 아직 다시 탈옥하지 않은 상태와 비슷하게 만들어 줍니다. RootHide를 대신할 수 있는 적절한 대체 수단은 아닙니다. 이 옵션은 문제를 일으킬 수 있어 별도의 지원이 제공되지 않으며, 사용에 따른 책임은 본인에게 있습니다.";
+"Hint_Hide_Jailbreak" = "\"탈옥 숨기기\"는 다음 탈옥까지 일시적으로 탈옥 관련 파일을 제거합니다";
+"Hint_Hide_Jailbreak_Jailbroken" = "\"탈옥 숨기기\"는 일부 탈옥 탐지를 우회하기 위해 탈옥을 일시적으로 비활성화하는 데 사용할 수 있습니다. 완전히 효과적이지는 않으며 모든 흔적을 숨기지는 못하지만, 기기를 재부팅 후 아직 다시 탈옥하지 않은 상태와 비슷하게 만들어 줍니다. RootHide를 대체할 수 있는 수단이 아닙니다. 이 옵션은 문제를 일으킬 수 있어 별도의 지원이 제공되지 않으며, 사용에 따른 책임은 본인에게 있습니다.";
 "Section_Jailbreak_Settings" = "탈옥 설정";
 "Section_Actions" = "작업";
 "Section_Customization" = "커스텀";
@@ -83,9 +83,9 @@
 "Button_Continue" = "계속";
 
 // Duplicate Apps Errors
-"Duplicate_Apps_Error_Dopamine_App" = "식별자 \"%@\"를 가진 앱이 Dopamine 앱 디렉터리(\"%@\") 안에 여러 개 있습니다. 진행할 수 없습니다.";
-"Duplicate_Apps_Error_User_App" = "식별자 %@를 가진 앱이 Dopamine 앱 디렉터리(\"%@\")에 있지만, 시스템에도 별도로 설치되어 있습니다. 진행할 수 없습니다.";
-"Duplicate_Apps_Error_Icon_Cache" = "식별자 \"%@\"를 가진 앱이 Dopamine 앱 디렉터리(\"%@\")에 있지만, 아이콘 캐시에는 다른 경로(\"%@\")로 등록되어 있습니다. 진행할 수 없습니다.";
+"Duplicate_Apps_Error_Dopamine_App" = "식별자가 \"%@\"인 앱이 Dopamine 앱 디렉터리(\"%@\") 안에 여러 개 있습니다. 진행할 수 없습니다.";
+"Duplicate_Apps_Error_User_App" = "식별자가 %@인 앱이 Dopamine 앱 디렉터리(\"%@\")에 있지만, 시스템에도 별도로 설치되어 있습니다. 진행할 수 없습니다.";
+"Duplicate_Apps_Error_Icon_Cache" = "식별자가 \"%@\"인 앱이 Dopamine 앱 디렉터리(\"%@\")에 있지만, 아이콘 캐시에는 다른 경로(\"%@\")로 등록되어 있습니다. 진행할 수 없습니다.";
 
 // Settings Lists
 "Theme" = "테마";
@@ -109,7 +109,7 @@
 "Credits_Button_Source_Code" = "소스 코드";
 
 // Logs
-"Initializing Environment" = "환경 초기화 중";
+"Initializing Environment" = "탈옥 환경 초기화 중";
 "Initializing Protection" = "보호 초기화 중";
 "Loading BaseBin TrustCache" = "베이스 바이너리 신뢰 캐시 로드 중";
 "Applying Bind Mount" = "바인드 마운트 적용 중";
@@ -120,12 +120,85 @@
 "Building Phys R/W Primitive" = "물리적 읽기/쓰기 기능 설정 중";
 "Rebooting Userspace" = "Userspace 재시작 중";
 "Patchfinding" = "패치 찾는 중";
-"Exploiting Kernel (%@)" = "커널 익스플로잇(%@) 실행 중";
+"Exploiting Kernel (%@)" = "커널 익스플로잇 실행 중 (%@)";
 "Bypassing PAC (%@)" = "PAC 우회 중 (%@)";
 "Bypassing PPL (%@)" = "PPL 우회 중 (%@)";
 "Bypassing SPTM (%@)" = "SPTM 우회 중 (%@)";
+"Updating BaseBin" = "베이스 바이너리 업데이트 중";
+"Extracting Bootstrap" = "부트스트랩 압축 해제 중";
+"Downloading Bootstrap" = "부트스트랩 다운로드 중";
+"Downloading Bootstrap (%@/%@)" = "부트스트랩 다운로드 중 (%@/%@)";
+"Finalizing Bootstrap" = "부트스트랩 마무리 중";
+"Updating Bundled Packages" = "번들 패키지 업데이트 중";
+"Downloading Kernel" = "커널 다운로드 중";
 
 // Package Manager selection
 "Status_Title_Select_Package_Managers" = "패키지 매니저 선택";
 "Select_Package_Managers_Install_Message" = "어떤 것을 선택할지 모르겠다면 Sileo를 선택하세요.";
 "Continue" = "계속";
+
+// Additional Logs and Alerts
+"Checking For Duplicate Apps" = "중복 앱 확인 중";
+"Launching kexploitd" = "kexploitd 실행 중";
+"Launching oobPCI" = "oobPCI 실행 중";
+"Gaining r/w" = "읽기/쓰기 권한 획득 중";
+"Bypassing %@" = "%@ 우회 중";
+"Jailbreak failed with error: %@" = "탈옥 실패, 오류: %@";
+"Done" = "완료";
+"Error Updating Basebin" = "베이스 바이너리 업데이트 오류";
+
+// Error Messages
+"Failed to find kernelcache. Ensure your device is properly connected to the internet. If it still does not work, try installing Dopamine via TrollStore instead." = "커널캐시를 찾지 못했습니다. 기기가 인터넷에 제대로 연결되어 있는지 확인하세요. 그래도 해결되지 않으면 TrollStore를 통해 Dopamine을 설치해 보세요.";
+"XPF failed with error: (%s)" = "XPF 오류 발생: (%s)";
+"XPF start failed with error: (%s)" = "XPF 시작 실패, 오류: (%s)";
+"Kernel exploit is required but we did not find any" = "커널 익스플로잇이 필요하지만 사용 가능한 항목을 찾지 못했습니다";
+"PAC bypass is required but we did not find any" = "PAC 우회가 필요하지만 사용 가능한 항목을 찾지 못했습니다";
+"SPTM bypass is required but we did not find any" = "SPTM 우회가 필요하지만 사용 가능한 항목을 찾지 못했습니다";
+"PPL bypass is required but we did not find any" = "PPL 우회가 필요하지만 사용 가능한 항목을 찾지 못했습니다";
+"Failed to load kernel exploit: %s" = "커널 익스플로잇 로드 실패: %s";
+"Failed to exploit kernel" = "커널 익스플로잇 실패";
+"Failed to load PAC bypass: %s" = "PAC 우회 로드 실패: %s";
+"Failed to bypass PAC" = "PAC 우회 실패";
+"Failed to load PPL bypass: %s" = "PPL 우회 로드 실패: %s";
+"Failed to bypass PPL" = "PPL 우회 실패";
+"Failed to build phys r/w primitive: %d" = "물리적 읽기/쓰기 기능 설정 실패: %d";
+"Failed to cleanup exploits: %d" = "익스플로잇 정리 실패: %d";
+"Failed to get root, uid still %d" = "루트 권한 획득 실패, uid가 여전히 %d입니다";
+"Failed to get root, gid still %d" = "루트 권한 획득 실패, gid가 여전히 %d입니다";
+"Failed to unsandbox, /var does not seem accessible (%s)" = "샌드박스 해제 실패, /var에 접근할 수 없는 것 같습니다 (%s)";
+"Failed to get CS_PLATFORM_BINARY" = "CS_PLATFORM_BINARY 획득 실패";
+"Failed to upload BaseBin trustcache: %d" = "베이스 바이너리 신뢰 캐시 업로드 실패: %d";
+"Failed to load BaseBin trustcache" = "베이스 바이너리 신뢰 캐시 로드 실패";
+"Spawning jbctl failed with error code %d" = "jbctl 실행 실패, 오류 코드: %d";
+"Waiting for jbctl failed" = "jbctl 대기 실패";
+"opainject failed with error code %d" = "opainject 실패, 오류 코드: %d";
+"Failed initializing protection with error: %d" = "보호 초기화 실패, 오류: %d";
+"Creating fakelib failed with error: %d" = "fakelib 생성 실패, 오류: %d";
+"Got unexpected number of cdhashes for dyld???: %d" = "dyld의 cdhash 개수가 올바르지 않습니다: %d";
+"Failed to upload dyld trustcache: %d" = "dyld 신뢰 캐시 업로드 실패: %d";
+"Failed to build dyld trustcache" = "dyld 신뢰 캐시 생성 실패";
+"Mounting fakelib failed with error: %d" = "fakelib 마운트 실패, 오류: %d";
+"libarchive returned %d" = "libarchive 반환 값: %d";
+"Failed create %@->%@ symlink: Parent dir does not exists" = "%@->%@ 심볼릭 링크 생성 실패: 상위 디렉터리가 존재하지 않습니다";
+"Remounting /private/preboot as writable failed with error: %s" = "/private/preboot를 쓰기 가능으로 다시 마운트하지 못했습니다. 오류: %s";
+"Failed to obtain bootstrap URL" = "부트스트랩 URL을 가져오지 못했습니다";
+"Failed to download bootstrap: %@" = "부트스트랩 다운로드 실패: %@";
+"Removing /var/jb directory failed with error: %@" = "/var/jb 디렉터리 삭제 실패, 오류: %@";
+"Removing /var/jb symlink failed with error: %@" = "/var/jb 심볼릭 링크 삭제 실패, 오류: %@";
+"Failed deleting existing basebin file with error: %@" = "기존 베이스 바이너리 파일 삭제 실패, 오류: %@";
+"Failed to install %@: %d\n" = "%@ 설치 실패: %d\n";
+"prep_bootstrap.sh returned %d\n" = "prep_bootstrap.sh 반환 값: %d\n";
+"Failed to install launchctl: %d\n" = "launchctl 설치 실패: %d\n";
+"Failed to install libroot: %d\n" = "libroot 설치 실패: %d\n";
+"Failed to install the libkrw plugin: %d\n" = "libkrw 플러그인 설치 실패: %d\n";
+"Failed to install basebin link: %d\n" = "베이스 바이너리 링크 설치 실패: %d\n";
+"Failed to open input file %@: %s" = "입력 파일 열기 실패 (%@): %s";
+"Failed to open output file %@: %s" = "출력 파일 열기 실패 (%@): %s";
+"Failed to create ZSTD decompression context" = "ZSTD 압축 해제 컨텍스트 생성 실패";
+"Failed to allocate input buffer" = "입력 버퍼 할당 실패";
+"Failed to allocate output buffer" = "출력 버퍼 할당 실패";
+"Failed to create ZSTD decompression stream" = "ZSTD 압축 해제 스트림 생성 실패";
+"Failed to initialize ZSTD decompression stream: %s" = "ZSTD 압축 해제 스트림 초기화 실패: %s";
+"Failed to read input file: %s" = "입력 파일 읽기 실패: %s";
+"Failed to decompress input data: %s" = "입력 데이터 압축 해제 실패: %s";
+"Failed to write output file: %s" = "출력 파일 쓰기 실패: %s";

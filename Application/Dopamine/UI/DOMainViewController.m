@@ -245,7 +245,7 @@
         [jailbreaker runWithError:&error didRemoveJailbreak:&didRemove showLogs:&showLogs];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error && showLogs) {
-                [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Jailbreak failed with error: %@", error] debug:NO];
+                [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:DOLocalizedString(@"Jailbreak failed with error: %@"), error] debug:NO];
                 [self.navigationController pushViewController:[[DOLogCrashViewController alloc] initWithTitle:[error localizedDescription]] animated:YES];
             }
             else if (error && !showLogs) {
@@ -325,7 +325,7 @@
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [uiManager completeJailbreak];
-        [uiManager sendLog:@"Rebooting Userspace" debug: NO];
+        [uiManager sendLog:DOLocalizedString(@"Rebooting Userspace") debug: NO];
         didFinish = YES;
         [self fadeToBlack: ^{
 
@@ -334,20 +334,20 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [NSThread sleepForTimeInterval:0.2];
-        [uiManager sendLog:@"Launching kexploitd" debug: NO];
+        [uiManager sendLog:DOLocalizedString(@"Launching kexploitd") debug: NO];
         [NSThread sleepForTimeInterval:0.5];
-        [uiManager sendLog:@"Launching oobPCI" debug: NO];
+        [uiManager sendLog:DOLocalizedString(@"Launching oobPCI") debug: NO];
         [NSThread sleepForTimeInterval:0.15];
-        [uiManager sendLog:@"Gaining r/w" debug: NO];
+        [uiManager sendLog:DOLocalizedString(@"Gaining r/w") debug: NO];
         [NSThread sleepForTimeInterval:0.8];
-        [uiManager sendLog:@"Patchfinding" debug: NO];
+        [uiManager sendLog:DOLocalizedString(@"Patchfinding") debug: NO];
         NSArray *types = @[@"AMFI", @"PAC", @"KTRR", @"KPP", @"PPL", @"KPF", @"APRR", @"AMCC", @"PAN", @"PXN", @"ASLR", @"OPA"]; //Ever heard of the legendary opa bypass
         while (true)
         {
             [NSThread sleepForTimeInterval:0.6 * rand() / RAND_MAX];
             if (didFinish) break;
             NSString *type = types[arc4random_uniform((uint32_t)types.count)];
-            [uiManager sendLog:[NSString stringWithFormat:@"Bypassing %@", type] debug: NO];
+            [uiManager sendLog:[NSString stringWithFormat:DOLocalizedString(@"Bypassing %@"), type] debug: NO];
         }
     });
 }

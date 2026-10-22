@@ -103,7 +103,7 @@
             NSError *error = [[DOEnvironmentManager sharedManager] updateEnvironment];
             if (error)
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error Updating Basebin" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:DOLocalizedString(@"Error Updating Basebin") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:DOLocalizedString(@"Button_Close") style:UIAlertActionStyleDefault handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
             }

@@ -60,7 +60,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 {
     int r = libarchive_unarchive(tarPath.fileSystemRepresentation, destinationPath.fileSystemRepresentation);
     if (r != 0) {
-        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedExtracting userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"libarchive returned %d", r]}];
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedExtracting userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"libarchive returned %d"), r]}];
     }
     return nil;
 }
@@ -94,7 +94,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     NSError *error;
     NSString *parentPath = [path stringByDeletingLastPathComponent];
     if (![[NSFileManager defaultManager] fileExistsAtPath:parentPath]) {
-        if (!createIntermediate) return [NSError errorWithDomain:bootstrapErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed create %@->%@ symlink: Parent dir does not exists", path, destinationPath]}];
+        if (!createIntermediate) return [NSError errorWithDomain:bootstrapErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed create %@->%@ symlink: Parent dir does not exists"), path, destinationPath]}];
         if (![[NSFileManager defaultManager] createDirectoryAtPath:parentPath withIntermediateDirectories:YES attributes:nil error:&error]) return error;
     }
     
@@ -134,7 +134,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     if (![self isPrivatePrebootMountedWritable]) {
         int r = [self remountPrivatePrebootWritable:YES];
         if (r != 0) {
-            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedRemount userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Remounting /private/preboot as writable failed with error: %s", strerror(errno)]}];
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedRemount userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Remounting /private/preboot as writable failed with error: %s"), strerror(errno)]}];
         }
     }
     return nil;
@@ -208,14 +208,14 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 {
     NSURL *bootstrapURL = [self bootstrapURL];
     if (!bootstrapURL) {
-        completion(nil, [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedToGetURL userInfo:@{NSLocalizedDescriptionKey : @"Failed to obtain bootstrap URL"}]);
+        completion(nil, [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedToGetURL userInfo:@{NSLocalizedDescriptionKey : DOLocalizedString(@"Failed to obtain bootstrap URL")}]);
         return;
     }
     
     _downloadCompletionBlock = ^(NSURL * _Nullable location, NSError * _Nullable error) {
         NSError *ourError;
         if (error) {
-            ourError = [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedToDownload userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to download bootstrap: %@", error.localizedDescription]}];
+            ourError = [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedToDownload userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to download bootstrap: %@"), error.localizedDescription]}];
         }
         completion(location.path, ourError);
     };
@@ -250,11 +250,11 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     if (![self deleteSymlinkAtPath:@"/var/jb" error:&error]) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/jb"]) {
             if (![[NSFileManager defaultManager] removeItemAtPath:@"/var/jb" error:&error]) {
-                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedReplacing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Removing /var/jb directory failed with error: %@", error]}];
+                return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedReplacing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Removing /var/jb directory failed with error: %@"), error]}];
             }
         }
         else {
-            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedReplacing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Removing /var/jb symlink failed with error: %@", error]}];
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedReplacing userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Removing /var/jb symlink failed with error: %@"), error]}];
         }
     }
 
@@ -263,7 +263,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 
 - (void)prepareBootstrapWithCompletion:(void (^)(NSError *))completion
 {
-    [[DOUIManager sharedInstance] sendLog:@"Updating BaseBin" debug:NO];
+    [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating BaseBin") debug:NO];
 
     // Ensure /private/preboot is mounted writable (Not writable by default on iOS <=15)
     NSError *error = [self ensurePrivatePrebootIsWritable];
@@ -373,7 +373,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             }
 
             if (!recovered) {
-                completion([NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedExtracting userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed deleting existing basebin file with error: %@", error.localizedDescription]}]);
+                completion([NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedExtracting userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed deleting existing basebin file with error: %@"), error.localizedDescription]}]);
                 return;
             }
         }
@@ -445,7 +445,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             [self extractBootstrap:path withCompletion:bootstrapFinishedCompletion];
         };*/
         
-        [[DOUIManager sharedInstance] sendLog:@"Extracting Bootstrap" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Extracting Bootstrap") debug:NO];
 
         NSString *bootstrapZstdPath = [NSString stringWithFormat:@"%@/bootstrap_%@.tar.zst", [NSBundle mainBundle].bundlePath, [self bootstrapVersion]];
         [self extractBootstrap:bootstrapZstdPath withCompletion:bootstrapFinishedCompletion];
@@ -460,7 +460,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             bootstrapDownloadCompletion(bundleCandidate, nil);
         }
         else {
-            [[DOUIManager sharedInstance] sendLog:@"Downloading Bootstrap" debug:NO];
+            [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Downloading Bootstrap") debug:NO];
             [self downloadBootstrapWithCompletion:bootstrapDownloadCompletion];
         }*/
     }
@@ -514,7 +514,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
         NSString *name = packageManagerDict[@"Display Name"];
         int r = [self installPackage:path];
         if (r != 0) {
-            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install %@: %d\n", name, r]}];
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to install %@: %d\n"), name, r]}];
         }
     }
     return nil;
@@ -535,10 +535,10 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
 {
     // Initial setup on first jailbreak
     if ([[NSFileManager defaultManager] fileExistsAtPath:JBROOT_PATH(@"/prep_bootstrap.sh")]) {
-        [[DOUIManager sharedInstance] sendLog:@"Finalizing Bootstrap" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Finalizing Bootstrap") debug:NO];
         int r = exec_cmd_trusted(JBROOT_PATH("/bin/sh"), JBROOT_PATH("/prep_bootstrap.sh"), NULL);
         if (r != 0) {
-            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"prep_bootstrap.sh returned %d\n", r]}];
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"prep_bootstrap.sh returned %d\n"), r]}];
         }
         
         NSError *error = [self installPackageManagers];
@@ -554,24 +554,24 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     }
     
     if (shouldInstallLibroot || shouldInstallLibkrw || shouldInstallBasebinLink || shouldInstallLaunchctl) {
-        [[DOUIManager sharedInstance] sendLog:@"Updating Bundled Packages" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating Bundled Packages") debug:NO];
 
         if (shouldInstallLaunchctl) {
             NSString *launchctlPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"launchctl_1_1.2.0_iphoneos-arm64.deb"];
             int r = [self installPackage:launchctlPath];
-            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install launchctl: %d\n", r]}];
+            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to install launchctl: %d\n"), r]}];
         }
 
         if (shouldInstallLibroot) {
             NSString *librootPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"libroot.deb"];
             int r = [self installPackage:librootPath];
-            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install libroot: %d\n", r]}];
+            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to install libroot: %d\n"), r]}];
         }
         
         if (shouldInstallLibkrw) {
             NSString *libkrwPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"libkrw-dopamine.deb"];
             int r = [self installPackage:libkrwPath];
-            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install the libkrw plugin: %d\n", r]}];
+            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to install the libkrw plugin: %d\n"), r]}];
         }
         
         if (shouldInstallBasebinLink) {
@@ -592,7 +592,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             
             NSString *basebinLinkPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"basebin-link.deb"];
             int r = [self installPackage:basebinLinkPath];
-            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install basebin link: %d\n", r]}];
+            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:DOLocalizedString(@"Failed to install basebin link: %d\n"), r]}];
         }
     }
 
@@ -616,7 +616,7 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
         NSString *sizeString = [NSByteCountFormatter stringFromByteCount:totalBytesWritten countStyle:NSByteCountFormatterCountStyleFile];
         NSString *writtenBytesString = [NSByteCountFormatter stringFromByteCount:totalBytesExpectedToWrite countStyle:NSByteCountFormatterCountStyleFile];
         
-        [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Downloading Bootstrap (%@/%@)", sizeString, writtenBytesString] debug:NO update:YES];
+        [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:DOLocalizedString(@"Downloading Bootstrap (%@/%@)"), sizeString, writtenBytesString] debug:NO update:YES];
     }
 }
 
